@@ -1,0 +1,1 @@
+export const SERVER_API = "http://clinico.na4u.ru/api"
