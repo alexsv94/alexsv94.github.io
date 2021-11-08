@@ -1,1 +1,1 @@
-export const SERVER_API = "http://clinico.na4u.ru/api"
+export const SERVER_API = "https://clinico.na4u.ru/api"
