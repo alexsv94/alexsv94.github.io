@@ -7,6 +7,6 @@ export const user = new UserStore();
 check().then(data => {
 	user.setUser(data);
 	user.setIsAuth(true);
-});
+}).catch(e => console.log(e.message));
 
 router.init();

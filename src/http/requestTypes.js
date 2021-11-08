@@ -7,6 +7,12 @@ export const authRequest = async (url, method, data) => {
 		},
 		body: JSON.stringify(data)
 	});
+
+	if (response.status >= 400) {
+		const body = await response.json()
+		throw new Error(body.message);
+	}
+
 	return await response.json();
 }
 
@@ -18,5 +24,11 @@ export const commonRequest = async (url, method, data) => {
 		},
 		body: JSON.stringify(data)
 	});
+
+	if (response.status >= 400) {
+		const body = await response.json()
+		throw new Error(body.message);
+	}
+
 	return await response.json();
 }

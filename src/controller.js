@@ -2,6 +2,7 @@ import { fetchDeseaseById, fetchDeseases, fetchMedicationById, fetchMedications 
 import deseasePage from "./components/deseasePage.js";
 import deseasesPage from "./components/deseasesPage.js";
 import authPage from "./components/authPage.js";
+import registrationPage from "./components/registrationPage.js";
 import userPage from "./components/userPage.js";
 import medicationPage from "./components/medicationPage.js";
 import medicationsPage from "./components/medicationsPage.js";
@@ -40,6 +41,10 @@ export default {
 
 	authRoute() {
 		authPage.render();
+	},
+
+	registrationRoute() {
+		registrationPage.render();
 	},
 
 	async favoritesRoute(params) {

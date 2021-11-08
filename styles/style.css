@@ -91,6 +91,8 @@
 	margin-top: 5px;
 	flex-grow: 1;
 	overflow-y: scroll;
+	display: flex;
+	flex-direction: column;
 }
 
 .content-wrapper__content:nth-last-child(0) {
@@ -134,7 +136,22 @@
 }
 
 .filter-input:focus {
-	outline: none;
+	box-shadow: 0 0 5px #01b99b;
+}
+
+.data-input {
+	width: 100%;
+	background-color: #002b35;
+	font-size: 14px;
+	font-style: italic;
+	color: #01b99b;
+	padding: 20px;
+	border: none;
+	border-radius: 5px;
+	transition: height 0.3s;
+}
+
+.data-input:focus {
 	box-shadow: 0 0 5px #01b99b;
 }
 
@@ -204,6 +221,30 @@ th {
 p {
 	display: inline-block;
 	margin-top: 10px;
+}
+
+.reg-button {
+	display: block;
+	width: 100%;
+	padding: 15px 10px;
+	margin-bottom: 5px;
+	background-color: #0b606d;
+	border-radius: 0.3rem;
+	user-select: none;
+	opacity: 1;
+	transition: opacity 0.2s ease-in-out;
+}
+
+.register-label {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	margin-bottom: 50px;
+}
+
+.register-label a {
+	color: #459735;
 }
 
 #edit-button {
