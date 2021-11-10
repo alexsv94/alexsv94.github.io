@@ -1,4 +1,4 @@
-import { logout } from "../http/userApi.js";
+import { logout, updateUserData } from "../http/userApi.js";
 
 export default {
 	render(user) {
@@ -9,7 +9,9 @@ export default {
 		const container = document.createElement('div');
 		container.className = "content-wrapper__content";
 		wrapper.append(container);
-		container.innerHTML = `
+
+		function renderDefaultPageState() {
+			container.innerHTML = `
 			<div class="card">
 				<span class="card__title">E-Mail</span>
 				<div class="card__body" id="emailCard">${user.user.email}</div>
@@ -26,12 +28,21 @@ export default {
 				<span class="card__title">Фамилия</span>
 				<div class="card__body" id="lastnameCard">${user.user.lastname}</div>
 			</div>
-		`;
+			<button class="reg-button" id="editBtn">Редактировать</button>
+			<button class="reg-button" id="logoutBtn">Выйти</button>
+			`;
 
-		const editButton = document.createElement('button');
-		editButton.className = "reg-button";
-		editButton.innerText = "Редактировать";
-		editButton.addEventListener('click', () => {
+			const editButton = document.querySelector('#editBtn');
+			editButton.addEventListener('click', renderEditForm);
+
+			const exitButton = document.querySelector('#logoutBtn');
+			exitButton.addEventListener('click', () => {
+				logout();
+				location = '#auth'
+			});
+		}
+
+		function renderEditForm() {
 			container.innerHTML = `
 			<div class="card">
 				<span class="card__title">E-Mail</span>
@@ -41,40 +52,61 @@ export default {
 			</div>
 			<div class="card">
 				<span class="card__title">Старый пароль</span>
-				<div class="card__body" id="passwordCard">
+				<div class="card__body">
 					<input type="password" id="old-password-input" placeholder="Введите пароль..." class="data-input"/>
 				</div>
 			</div>
 			<div class="card">
 				<span class="card__title">Новый пароль</span>
-				<div class="card__body" id="passwordCard">
+				<div class="card__body">
 					<input type="password" id="new-password-input" placeholder="Введите пароль..." class="data-input"/>
 				</div>
 			</div>
 			<div class="card">
 				<span class="card__title">Имя</span>
-				<div class="card__body" id="emailCard">
+				<div class="card__body">
 					<input type="text" id="firstname-input" placeholder="Введите имя..." class="data-input" value="${user.user.firstname}"/>
 				</div>
 			</div>
 			<div class="card">
 				<span class="card__title">Фамилия</span>
-				<div class="card__body" id="passwordCard">
+				<div class="card__body">
 					<input type="text" id="lastname-input" placeholder="Введите фамилию..." class="data-input" value="${user.user.lastname}"/>
 				</div>
 			</div>
+			<button class="reg-button" id="confirmBtn">Сохранить</button>
+			<button class="reg-button" id="cancelBtn">Отмена</button>
 			`
-		});
-		container.append(editButton);
+			const confirmButton = document.querySelector('#confirmBtn');
+			const cancelButton = document.querySelector('#cancelBtn');
 
-		const exitButton = document.createElement('button');
-		exitButton.className = "reg-button";
-		exitButton.innerText = "Выйти";
-		exitButton.addEventListener('click', () => {
-			logout();
-			location = '#auth'
-		});
-		container.append(exitButton);
+			confirmButton.addEventListener('click', async () => {
+				const email = document.querySelector('#email-input').value;
+				const password = document.querySelector('#old-password-input').value;
+				const newPassword = document.querySelector('#new-password-input').value;
+				const firstname = document.querySelector('#firstname-input').value;
+				const lastname = document.querySelector('#lastname-input').value;				
 
+				try {
+					const result = await updateUserData({
+						email,
+						password,
+						newPassword,
+						firstname,
+						lastname
+					});
+					user.setUser(result);
+					location = '#user';
+				} catch (e) {
+					alert(e.message)
+				}
+			})
+
+			cancelButton.addEventListener('click', () => {
+				renderDefaultPageState();
+			})
+		}
+
+		renderDefaultPageState();
 	}
 }

@@ -22,6 +22,22 @@ export const login = async (email, password) => {
 	return jwt_decode(body.token);
 }
 
+export const updateUserData = async (userToUpdate) => {
+	const body = await authRequest(
+		SERVER_API + `/user/${user.user.id}`,
+		'PUT',
+		{
+			email: userToUpdate.email,
+			password: userToUpdate.password,
+			newPassword: userToUpdate.newPassword,
+			firstname: userToUpdate.firstname,
+			lastname: userToUpdate.lastname
+		}
+	);
+	localStorage.setItem('auth_token', body.token)
+	return jwt_decode(body.token);
+}
+
 export const check = async () => {
 	const body = await authRequest(SERVER_API + '/user/auth')
 	localStorage.setItem('auth_token', body.token)
