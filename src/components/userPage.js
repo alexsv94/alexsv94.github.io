@@ -85,7 +85,7 @@ export default {
 				const password = document.querySelector('#old-password-input').value;
 				const newPassword = document.querySelector('#new-password-input').value;
 				const firstname = document.querySelector('#firstname-input').value;
-				const lastname = document.querySelector('#lastname-input').value;				
+				const lastname = document.querySelector('#lastname-input').value;
 
 				try {
 					const result = await updateUserData({
@@ -96,7 +96,7 @@ export default {
 						lastname
 					});
 					user.setUser(result);
-					location = '#user';
+					location.reload();
 				} catch (e) {
 					alert(e.message)
 				}

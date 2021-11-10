@@ -27,11 +27,14 @@ export const updateUserData = async (userToUpdate) => {
 		SERVER_API + `/user/${user.user.id}`,
 		'PUT',
 		{
-			email: userToUpdate.email,
-			password: userToUpdate.password,
-			newPassword: userToUpdate.newPassword,
-			firstname: userToUpdate.firstname,
-			lastname: userToUpdate.lastname
+			user: {
+				id: user.user.id,
+				email: userToUpdate.email,
+				password: userToUpdate.password,
+				newPassword: userToUpdate.newPassword,
+				firstname: userToUpdate.firstname,
+				lastname: userToUpdate.lastname
+			}
 		}
 	);
 	localStorage.setItem('auth_token', body.token)
